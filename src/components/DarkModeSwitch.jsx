@@ -24,9 +24,9 @@ export const DarkModeSwitch = () => {
   return (
     <button
       onClick={() => setIsDark(!isDark)}
-      className="p-2 bg-gray-300 dark:bg-gray-700 rounded"
+      className="bg-primary-500 text-primary-foreground dark:bg-primary dark:text-primary-foreground px-4 py-2 rounded"
     >
-      {isDark ? '☀️ Light Mode' : '🌙 Dark Mode'}
+      {isDark ? '☀️' : '🌙'}
     </button>
   );
 }
