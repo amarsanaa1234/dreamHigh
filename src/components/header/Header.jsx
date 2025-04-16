@@ -15,7 +15,7 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [
-    {name: "Тэмцээн", component: ''},
+    {name: "Тэмцээн", component: '/'},
     {name: "Багийн бүртгэл", component: 'teamAdd'},
     {name: "Тоглогчийн бүртгэл", component: 'playerAdd'},
   ];
@@ -48,7 +48,7 @@ export const Header = () => {
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link to={"/teamAdd"}>
+          <Link to={"/"}>
             <Button color="primary" variant="shadow">Тэмцээн</Button>
           </Link>
         </NavbarItem>

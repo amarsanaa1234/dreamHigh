@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
-import {addToast, Button, Card, CardBody, CardHeader, Checkbox, Form, Input, Select, SelectItem} from "@heroui/react";
+import {Button, Card, CardBody, CardHeader, Checkbox, Form, Input, Select, SelectItem} from "@heroui/react";
 import {showMessage} from "../../../tools/Tools.jsx";
-import supabase from "../../../tools/SupabaseClient.jsx";
+import {supabase} from "../../../tools/SupabaseClient.jsx";
 
 export const TeamAddComponent = () => {
   const [submitted, setSubmitted] = useState(null);
@@ -29,19 +29,43 @@ export const TeamAddComponent = () => {
     setErrors({}); // clear errors
 
     try {
-      // Convert image to binary (Uint8Array)
-      const arrayBuffer = await image.arrayBuffer();
-      const uint8Array = new Uint8Array(arrayBuffer);
 
-      // Create full row data object
+      const fileExt = image.name.split('.').pop();
+      const fileName = `${Date.now()}.${fileExt}`;
+      const filePath = `team/${fileName}`;
+
+      const { data: uploadData, error: uploadError } = await supabase
+        .storage
+        .from('dream-high-image') // 🔁 Replace with your actual bucket name
+        .upload(filePath, image);
+
+      if (uploadError) {
+        console.error("Upload error:", uploadError.message);
+        showMessage({ type: "error", text: "Зураг оруулахад алдаа гарлаа!" });
+        return;
+      }
+
+      // 2. Get public URL or path
+      const { data: publicUrlData } = supabase
+        .storage
+        .from('dream-high-image')
+        .getPublicUrl(filePath); // you can also use `getSignedUrl` for private URLs
+
+      const imageUrl = publicUrlData.publicUrl;
+
       const insertData = {
         name: data.name,
         nickname: data.nickname,
-        gender: data.gender, // assuming one gender select stays
-        image: uint8Array, // <-- this is the bytea image column
+        gender: parseInt(data.gender),
+        sport_type: parseInt(data.sport_type),
+        image: imageUrl,
+        total_win: 0,
+        total_loss: 0,
+        total_plus_minus: 0,
+        active_flag: 1,
       };
 
-      const { error } = await supabase.from("team").insert([insertData]);
+      const { datas, error } = await supabase.from("team").insert([insertData]).single();
 
       if (error) {
         console.error("Upload error:", error.message);
@@ -121,7 +145,7 @@ export const TeamAddComponent = () => {
                 isRequired
                 label="Тэмцээний төрөл"
                 labelPlacement="outside"
-                name="gender"
+                name="sport_type"
                 placeholder="Тэмцээний төрлөө сонгоно уу!"
               >
                 <SelectItem key={1}>BASKETBALL</SelectItem>
@@ -130,9 +154,7 @@ export const TeamAddComponent = () => {
 
               <Checkbox
                 isRequired
-                classNames={{
-                  label: "text-small",
-                }}
+                classNames={{label: "text-small",}}
                 isInvalid={!!errors.terms}
                 name="terms"
                 validationBehavior="aria"
