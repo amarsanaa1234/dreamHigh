@@ -1,12 +1,13 @@
-import React, {useState} from 'react'
+import React, {useRef, useState} from 'react'
 import {Button, Card, CardBody, CardHeader, Checkbox, Form, Input, Select, SelectItem} from "@heroui/react";
 import {showMessage} from "../../../tools/Tools.jsx";
 import {supabase} from "../../../tools/SupabaseClient.jsx";
 
 export const TeamAddComponent = () => {
-  const [submitted, setSubmitted] = useState(null);
   const [errors, setErrors] = useState({});
   const [image, setImage] = useState(null);
+  const formRef = useRef(null);
+
 
   const onImageChange = (e) => {
     setImage(e.target.files[0]);
@@ -26,7 +27,7 @@ export const TeamAddComponent = () => {
       return;
     }
 
-    setErrors({}); // clear errors
+    setErrors({});
 
     try {
 
@@ -34,9 +35,9 @@ export const TeamAddComponent = () => {
       const fileName = `${Date.now()}.${fileExt}`;
       const filePath = `team/${fileName}`;
 
-      const { data: uploadData, error: uploadError } = await supabase
+      const { error: uploadError } = await supabase
         .storage
-        .from('dream-high-image') // 🔁 Replace with your actual bucket name
+        .from('dream-high-image')
         .upload(filePath, image);
 
       if (uploadError) {
@@ -45,11 +46,10 @@ export const TeamAddComponent = () => {
         return;
       }
 
-      // 2. Get public URL or path
       const { data: publicUrlData } = supabase
         .storage
         .from('dream-high-image')
-        .getPublicUrl(filePath); // you can also use `getSignedUrl` for private URLs
+        .getPublicUrl(filePath);
 
       const imageUrl = publicUrlData.publicUrl;
 
@@ -65,13 +65,13 @@ export const TeamAddComponent = () => {
         active_flag: 1,
       };
 
-      const { datas, error } = await supabase.from("team").insert([insertData]).single();
+      const { error } = await supabase.from("team").insert([insertData]).single();
 
       if (error) {
         console.error("Upload error:", error.message);
       } else {
         showMessage({ type: "success", text: "Амжилттай хадгаллаа." });
-        setSubmitted(null);
+        formRef.current.reset();
       }
     } catch (err) {
       console.error("Image conversion error:", err);
@@ -80,15 +80,15 @@ export const TeamAddComponent = () => {
 
   return (
     <>
-      <Card isBlurred className="border-none bg-background/60 dark:bg-default-100/50 w-1/3" shadow="sm">
+      <Card isBlurred className="border-none bg-background/60 dark:bg-default-100/50 w-[400px]" shadow="sm">
         <CardHeader className="pb-0 pt-2 px-4 flex-col items-start m-3">
           <small className="text-default-foreground">Багийн бүртгэл</small>
         </CardHeader>
         <CardBody className="overflow-visible pb-14 pt-10">
           <Form
+            ref={formRef}
             className="w-full justify-center items-center space-y-4"
             validationErrors={errors}
-            onReset={() => setSubmitted(null)}
             onSubmit={onSubmit}
           >
             <div className="flex flex-col gap-4 max-w-md">
@@ -167,10 +167,10 @@ export const TeamAddComponent = () => {
               {errors.terms && <span className="text-danger text-small">{errors.terms}</span>}
 
               <div className="flex gap-4">
-                <Button className="w-full" color="primary" type="submit">
+                <Button className="w-full" color="primary" type="submit" size="sm">
                   Хадгалах
                 </Button>
-                <Button type="reset" variant="bordered">
+                <Button type="reset" variant="bordered" size="sm">
                   Цэвэрлэх
                 </Button>
               </div>

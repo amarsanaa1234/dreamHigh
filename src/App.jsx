@@ -13,22 +13,6 @@ function App() {
       <>
         {ComponentList[compCode].component}
       </>
-      // <Col
-      //   xs={24}
-      //   sm={24}
-      //   md={span}
-      //   lg={span}
-      //   xl={span}
-      //   xxl={span}
-      //   key={index}
-      //   style={{
-      //     padding: 12,
-      //     background: colorBgContainer,
-      //     borderRadius: borderRadiusLG,
-      //   }}
-      // >
-      //   {componentList[compCode].component}
-      // </Col>
     );
   }
 
@@ -39,6 +23,7 @@ function App() {
         <Route path="adminComponent" element={getComponent("ADMIN_COMPONENT")}/>
         <Route path="teamAdd" element={getComponent("TEAM_ADD")}/>
         <Route path="playerAdd" element={getComponent("PLAYER_ADD")}/>
+        <Route path="gameSchedule" element={getComponent("GAME_SCHEDULE")}/>
       </Routes>
     );
   };

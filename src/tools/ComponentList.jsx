@@ -2,6 +2,7 @@ import {AdminComponent} from "../components/adminComponent/AdminComponent.jsx";
 import {TeamAddComponent} from "../components/registration/teamAddComponent/TeamAddComponent.jsx";
 import {PlayerAddComponent} from "../components/registration/playerAddComponent/PlayerAddComponent.jsx";
 import {Home} from "../components/main/Home.jsx";
+import {GameSchedule} from "../components/gameSchedule/GameSchedule.jsx";
 
 export const ComponentList = {
   ADMIN_COMPONENT:{
@@ -19,5 +20,9 @@ export const ComponentList = {
   PLAYER_ADD:{
     componentCode: "PLAYER_ADD",
     component: <PlayerAddComponent />,
+  },
+  GAME_SCHEDULE:{
+    componentCode: "GAME_SCHEDULE",
+    component: <GameSchedule />,
   }
 };

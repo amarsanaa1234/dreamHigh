@@ -18,6 +18,7 @@ export const Header = () => {
     {name: "Тэмцээн", component: '/'},
     {name: "Багийн бүртгэл", component: 'teamAdd'},
     {name: "Тоглогчийн бүртгэл", component: 'playerAdd'},
+    {name: "Тоглолтын хуваарь", component: 'gameSchedule'},
   ];
 
   const AcmeLogo = () => {

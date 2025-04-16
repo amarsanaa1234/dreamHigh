@@ -11,7 +11,7 @@ export const Home = () => {
   }, []);
 
   const fetchData = async () => {
-    const { data, error } = await supabase.from("team").select("*");
+    const { data, error } = await supabase.from("team").select("*").eq("active_flag", 1);
     if(error){
       showMessage({ type: "warning", text: "data дуудах үед алдаа гарлаа." });
     }else{
@@ -28,6 +28,7 @@ export const Home = () => {
             alt="HeroUI Fruit Image with Zoom"
             src={item.image}
             width={240}
+            height={240}
           />
           {item.name}
         </div>
