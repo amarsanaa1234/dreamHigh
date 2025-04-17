@@ -2,6 +2,7 @@ import {Route, Routes} from "react-router-dom";
 import {ComponentList} from "./tools/ComponentList.jsx";
 import {Header} from "./components/header/Header.jsx";
 import {MainFooter} from "./components/footer/MainFooter.jsx";
+import {LayoutGroup} from "framer-motion";
 
 function App() {
 
@@ -31,10 +32,10 @@ function App() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-black dark:text-white">
       <Header/>
-      <div className={'mb-8 w-full h-[calc(100vh-180px)] justify-center items-center flex'}>
-        {getRoutes()}
-      </div>
-      {/* <MainFooter/> */}
+          <div className={'mb-8 w-full justify-center items-center flex container mx-auto max-w-7xl pt-16 px-6 flex-grow'}>
+            {getRoutes()}
+          </div>
+      <MainFooter/>
     </div>
   );
 }
