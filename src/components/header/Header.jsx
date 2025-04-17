@@ -35,7 +35,7 @@ export const Header = () => {
   };
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className="mb-10">
+    <Navbar onMenuOpenChange={setIsMenuOpen} shouldHideOnScroll>
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
