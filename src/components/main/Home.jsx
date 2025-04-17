@@ -128,7 +128,9 @@ export const Home = () => {
           <Tab key="male-volleyball" title="Эрэгтэй волейбол">
             {createTable(maleVolleyball)}
           </Tab>
-          hi lalaraa
+          zl lalrasaas
+          sdsd
+          sd
         </Tabs>
       </div>
     </div>
