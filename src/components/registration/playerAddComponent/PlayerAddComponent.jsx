@@ -16,7 +16,7 @@ export const PlayerAddComponent = () => {
 
     useEffect(() => {
         const fetchTeams = async () => {
-            const { data, error } = await supabase.from("team").select("*");
+            const { data, error } = await supabase.from("team").select("*").eq("active_flag", 1);
             if (error) {
                 showMessage({ type: "warning", text: "data дуудах үед алдаа гарлаа." });
             } else {
