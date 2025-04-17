@@ -34,7 +34,7 @@ function App() {
       <div className={'mb-8 w-full h-[calc(100vh-180px)] justify-center items-center flex'}>
         {getRoutes()}
       </div>
-      <MainFooter/>
+      {/* <MainFooter/> */}
     </div>
   );
 }
