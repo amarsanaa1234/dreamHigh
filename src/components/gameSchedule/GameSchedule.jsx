@@ -73,7 +73,7 @@ export const GameSchedule = () => {
     if(err){
       showMessage({ type: "warning", text: "data дуудах үед алдаа гарлаа." });
     }else{
-      console.log('rows', rows);
+      console.log('rasdasdows', rows);
     }
 
 
