@@ -56,65 +56,72 @@ export const Home = () => {
   };
   
   const createTable = (dataList) => (
-    <Table
-      isHeaderSticky
-      aria-label="Team list"
-      className="max-h-[600px] overflow-auto mt-4"
-    >
-      <TableHeader>
-        <TableColumn className="w-[400px]">Nickname</TableColumn>
-        <TableColumn>W</TableColumn>
-        <TableColumn>L</TableColumn>
-        <TableColumn>W/L Ratio</TableColumn>
-        <TableColumn>Sport Type</TableColumn>
-        <TableColumn>Actions</TableColumn>
-      </TableHeader>
-      <TableBody emptyContent={"Мэдээлэл олдсонгүй"}>
-        {dataList.map((item, index) => (
-          <TableRow key={index}>
-            <TableCell>
-              <div className="flex items-center gap-2">
-                <Image
-                  src={
-                    item.logo ||
-                    "https://qcgqnbovwktkbdbsiidk.supabase.co/storage/v1/object/public/dream-high-image/team/1744816634923.jpg"
-                  }
-                  alt={item.nickname}
-                  width={28}
-                  height={28}
-                  className="rounded-full object-cover"
-                />
-                {item.nickname}
-              </div>
-            </TableCell>
-            <TableCell>{item.total_win}</TableCell>
-            <TableCell>{item.total_loss}</TableCell>
-            <TableCell>{item.total_plus_minus}</TableCell>
-            <TableCell>{item.sport_type}</TableCell>
-            <TableCell className="text-right">
-              <Dropdown backdrop="blur">
-                <DropdownTrigger>
-                  <Button variant="bordered" size="sm">
-                    Тоглолт
-                  </Button>
-                </DropdownTrigger>
-                <DropdownMenu aria-label="Өмнөх тоглолтууд" variant="faded">
-                  <DropdownItem key="1">VS Team A — 88:76</DropdownItem>
-                  <DropdownItem key="2">VS Team B — 74:80</DropdownItem>
-                  <DropdownItem key="3">VS Team C — 91:87</DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  );
+      <Table
+        isHeaderSticky
+        aria-label="Team list"
+        className="max-h-[600px] overflow-auto mt-4"
+      >
+        <TableHeader >
+          <TableColumn className="w-[400px] font-bold">Nickname</TableColumn>
+          <TableColumn>W</TableColumn>
+          <TableColumn>L</TableColumn>
+          <TableColumn>W/L Ratio</TableColumn>
+          <TableColumn>Sport Type</TableColumn>
+          <TableColumn>Actions</TableColumn>
+        </TableHeader>
+        <TableBody emptyContent={"Мэдээлэл олдсонгүй"}>
+          {dataList.map((item, index) => (
+            <TableRow
+              key={index}
+              className="hover:bg-gray-400 hover:text-white transition duration-200 cursor-pointer"
+            >
+              <TableCell>
+                <div className="flex items-center gap-2">
+                  <Image
+                    src={
+                      item.image ||
+                      "https://qcgqnbovwktkbdbsiidk.supabase.co/storage/v1/object/public/dream-high-image/team/1744816634923.jpg"
+                    }
+                    alt={item.nickname}
+                    width={28}
+                    height={28}
+                    className="rounded-full object-cover"
+                  />
+                  {item.nickname}
+                </div>
+              </TableCell>
+              <TableCell>{item.total_win}</TableCell>
+              <TableCell>{item.total_loss}</TableCell>
+              <TableCell>{item.total_plus_minus}</TableCell>
+              <TableCell>{item.sport_type}</TableCell>
+              <TableCell className="text-right">
+                <Dropdown backdrop="blur">
+                  <DropdownTrigger>
+                    <Button
+                      variant="bordered"
+                      size="sm"
+                      className="hover:bg-blue-300 hover:text-white transition duration-200"
+                    >
+                      Тоглолт
+                    </Button>
+                  </DropdownTrigger>
+                  <DropdownMenu aria-label="Өмнөх тоглолтууд" variant="faded">
+                    <DropdownItem key="1">VS Team A — 88:76</DropdownItem>
+                    <DropdownItem key="2">VS Team B — 74:80</DropdownItem>
+                    <DropdownItem key="3">VS Team C — 91:87</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    );
   
 
   return (
     <div className="p-6 min-h-screen">
-      <div className="bg-white p-4 rounded-xl shadow">
+      <div className=" bg-gray-100 p-4 rounded-xl shadow 1">
         <Tabs aria-label="Sports Categories" variant="bordered">
           <Tab key="female-basketball" title="Эмэгтэй сагсан бөмбөг">
             {createTable(femaleBasketball)}
@@ -128,9 +135,6 @@ export const Home = () => {
           <Tab key="male-volleyball" title="Эрэгтэй волейбол">
             {createTable(maleVolleyball)}
           </Tab>
-          zl lalrasaas
-          asdasdasdasasdas
-          sd
         </Tabs>
       </div>
     </div>
