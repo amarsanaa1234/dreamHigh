@@ -63,19 +63,20 @@ export const PlayerAddComponent = () => {
             const { data: publicUrlData } = supabase.storage.from('dream-high-image').getPublicUrl(filePath);
 
             const imageUrl = publicUrlData.publicUrl;
-
+            const selectedTeam = teamList.filter((it) => it.id === parseInt(data.team_id))[0];
             const insertData = {
                 team_id: data.team_id,
                 lastname: data.lastname,
                 firstname: data.firstname,
                 job_position: data.job_position,
                 work_year: parseInt(data.work_year),
-                sport_type: parseInt(data.sport_type),
+                sport_type: parseInt(selectedTeam.sport_type),
                 role: data.role,
                 player_num: parseInt(data.player_num),
                 image: imageUrl,
-                gender: parseInt(data.gender),
+                gender: parseInt(selectedTeam.gender),
                 active_flag: 1,
+                starting_player_status: parseInt(data.starting_player_status),
             };
 
             const { error } = await supabase.from("player").insert([insertData]).single();
@@ -113,14 +114,17 @@ export const PlayerAddComponent = () => {
                                 placeholder="Багаа сонгоно уу!"
                             >
                                 {teamList.map((item) => (
-                                    <SelectItem key={item.id} value={item.id}>
-                                        {item.name}
-                                    </SelectItem>
+                                  <SelectItem key={item.id} textValue={item.name}>
+                                      <div className="flex flex-col">
+                                          <span className="text-small">{item.name}</span>
+                                          <span className="text-tiny text-default-400">{`${item.sport_type === 1 ? 'BASKETBALL' : 'VOLLEYBALL'} - ${item.gender === 1 ? 'Эрэгтэй' : 'Эмэгтэй'}`}</span>
+                                      </div>
+                                  </SelectItem>
                                 ))}
                             </Select>
                             <Input
-                                isRequired
-                                errorMessage={({validationDetails}) => {
+                              isRequired
+                              errorMessage={({validationDetails}) => {
                                     if (validationDetails.valueMissing) {
                                         return "Овогоо оруулна уу!";
                                     }
@@ -159,25 +163,6 @@ export const PlayerAddComponent = () => {
                                 labelPlacement="outside"
                                 name="job_position"
                                 placeholder="Албан тушаал оруулна уу!"
-                            />
-                            <Input
-                                label="Ажилласан жил"
-                                labelPlacement="outside"
-                                placeholder="0"
-                                endContent={
-                                    <div className="pointer-events-none flex items-center">
-                                        <span className="text-default-400 text-small">жил</span>
-                                    </div>
-                                }
-                                errorMessage={({validationDetails}) => {
-                                    if (validationDetails.valueMissing) {
-                                        return "Ажилласан жил оруулна уу!";
-                                    }
-
-                                    return errors.name;
-                                }}
-                                type="number"
-                                name="work_year"
                             />
                         </div>
                         <div className="gap-4 w-60 flex flex-col flex-wrap">
@@ -221,27 +206,34 @@ export const PlayerAddComponent = () => {
                                 accept="image/*"
                                 onChange={onImageChange}
                             />
+                            <Input
+                              label="Ажилласан жил"
+                              labelPlacement="outside"
+                              placeholder="0"
+                              endContent={
+                                  <div className="pointer-events-none flex items-center">
+                                      <span className="text-default-400 text-small">жил</span>
+                                  </div>
+                              }
+                              errorMessage={({validationDetails}) => {
+                                  if (validationDetails.valueMissing) {
+                                      return "Ажилласан жил оруулна уу!";
+                                  }
 
+                                  return errors.name;
+                              }}
+                              type="number"
+                              name="work_year"
+                            />
                             <Select
-                                isRequired
-                                label="Хүйс"
-                                labelPlacement="outside"
-                                name="gender"
-                                placeholder="Хүйс сонгоно уу!"
+                              isRequired
+                              label="Гарааны тоглогч эсэх"
+                              labelPlacement="outside"
+                              name="starting_player_status"
+                              defaultSelectedKeys={'0'}
                             >
-                                <SelectItem key={1}>Эрэгтэй</SelectItem>
-                                <SelectItem key={2}>Эмэгтэй</SelectItem>
-                            </Select>
-
-                            <Select
-                                isRequired
-                                label="Тэмцээний төрөл"
-                                labelPlacement="outside"
-                                name="sport_type"
-                                placeholder="Тэмцээний төрлөө сонгоно уу!"
-                            >
-                                <SelectItem key={1}>BASKETBALL</SelectItem>
-                                <SelectItem key={2}>VOLLEYBALL</SelectItem>
+                                <SelectItem key={'0'}>Үгүй</SelectItem>
+                                <SelectItem key={'1'}>Тийм</SelectItem>
                             </Select>
                         </div>
                         <div className="gap-4 w-60 flex flex-col flex-wrap">

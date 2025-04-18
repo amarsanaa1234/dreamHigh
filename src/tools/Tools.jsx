@@ -38,3 +38,11 @@ export function showMessage(props) {
             return;
     }
 }
+
+export const isNullOrEmpty = (value) => {
+    return !value || value === "null" || value === "undefined";
+}
+
+export const isNullOrEmptyArray = (value) => {
+    return !value || value.length === 0;
+}

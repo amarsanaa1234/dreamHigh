@@ -4,7 +4,7 @@ import {HeartIcon} from "@heroicons/react/16/solid/index.js";
 
 export const MainFooter = () => {
   return(
-    <footer className="w-full flex items-end justify-center py-3">
+    <footer className="w-full flex items-center justify-center py-3 gap-2">
       <Button isIconOnly aria-label="Like" color="warning" size="sm" className="bg-primary-500 text-warning-300">
         <HeartIcon />
       </Button>
