@@ -16,7 +16,7 @@ export const Header = () => {
 
   const menuItems = [
     {name: "Тэмцээн", component: '/'},
-    // {name: "Багийн бүртгэл", component: 'teamAdd'},
+    {name: "Багийн бүртгэл", component: 'gameSchedule'},
     // {name: "Тоглогчийн бүртгэл", component: 'playerAdd'},
     // {name: "Тоглолтын хуваарь", component: 'gameSchedule'},
   ];
