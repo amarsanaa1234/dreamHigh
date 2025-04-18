@@ -4,6 +4,7 @@ import {PlayerAddComponent} from "../components/registration/playerAddComponent/
 import {Home} from "../components/main/Home.jsx";
 import {GameSchedule} from "../components/gameSchedule/GameSchedule.jsx";
 import {GameMatch} from "../components/gameMatch/GameMatch.jsx";
+import  Dashboard  from "../components/dashboard/Dashboard.jsx";
 
 export const ComponentList = {
   ADMIN_COMPONENT:{
@@ -29,5 +30,9 @@ export const ComponentList = {
   GAME_MATCH:{
     componentCode: "GAME_MATCH",
     component: <GameMatch />,
+  },
+  DASHBOARD:{
+    componentCode: "DASHBOARD",
+    component: <Dashboard />,
   }
 };
