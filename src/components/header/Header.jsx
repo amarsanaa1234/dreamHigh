@@ -16,9 +16,9 @@ export const Header = () => {
 
   const menuItems = [
     {name: "Тэмцээн", component: '/'},
-    {name: "Багийн бүртгэл", component: 'teamAdd'},
-    {name: "Тоглогчийн бүртгэл", component: 'playerAdd'},
-    {name: "Тоглолтын хуваарь", component: 'gameSchedule'},
+    // {name: "Багийн бүртгэл", component: 'teamAdd'},
+    // {name: "Тоглогчийн бүртгэл", component: 'playerAdd'},
+    // {name: "Тоглолтын хуваарь", component: 'gameSchedule'},
   ];
 
   const AcmeLogo = () => {
@@ -53,16 +53,16 @@ export const Header = () => {
             <Button color="primary" variant="shadow">Тэмцээн</Button>
           </Link>
         </NavbarItem>
-        <NavbarItem isActive>
-          <Link to={"/teamAdd"}>
-            <Button color="primary" variant="shadow">Багийн бүртгэл</Button>
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link to={"/playerAdd"}>
-            <Button color="primary" variant="shadow">Тоглогчийн бүртгэл</Button>
-          </Link>
-        </NavbarItem>
+        {/*<NavbarItem isActive>*/}
+        {/*  <Link to={"/teamAdd"}>*/}
+        {/*    <Button color="primary" variant="shadow">Багийн бүртгэл</Button>*/}
+        {/*  </Link>*/}
+        {/*</NavbarItem>*/}
+        {/*<NavbarItem>*/}
+        {/*  <Link to={"/playerAdd"}>*/}
+        {/*    <Button color="primary" variant="shadow">Тоглогчийн бүртгэл</Button>*/}
+        {/*  </Link>*/}
+        {/*</NavbarItem>*/}
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
