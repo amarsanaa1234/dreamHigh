@@ -15,7 +15,7 @@ import {
 import {supabase} from "../../tools/SupabaseClient.jsx";
 import {isNullOrEmptyArray, showMessage} from "../../tools/Tools.jsx";
 import vs from '../../assets/vsImage.png';
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export const GameSchedule = () => {
 
@@ -162,8 +162,8 @@ export const GameSchedule = () => {
       away_team_loss_point: 0,
       master_plus_minus: 0,
       away_plus_minus: 0,
-      win_team_id: 0,
-      loss_team_id: 0,
+      master_win: 0,
+      away_win: 0,
       active_flag: 1
     };
 
@@ -304,7 +304,7 @@ export const GameSchedule = () => {
         return (
           <Card className={"flex justify-center items-center"}>
             <CardBody className={"flex justify-center items-center"}>
-              <Button color={'primary'} variant="shadow" size={"sm"} onClick={() => navigate(`/gameMatch/${user.id}`)}>
+              <Button color={'primary'} variant="shadow" size={"sm"} onPress={() => navigate(`/adminGameMatch/${user.id}`)}>
                 {cellValue}
               </Button>
             </CardBody>
