@@ -16,6 +16,7 @@ import {
   Button,
   DropdownItem,
 } from "@heroui/react";
+import {useNavigate} from "react-router-dom";
 
 export const Home = () => {
   const [maleBasketball, setMaleBasketball] = useState([]);
@@ -24,6 +25,8 @@ export const Home = () => {
   const [femaleVolleyball, setFemaleVolleyball] = useState([]);
   const [gameDetailsMap, setGameDetailsMap] = useState({});
   const [teamIdMap, setTeamIdMap] = useState({});
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchTeamsAndGames();
@@ -87,8 +90,9 @@ export const Home = () => {
   const createTable = (dataList) => (
     <Table
       isHeaderSticky
-      aria-label="Team list"
-      className="max-h-[600px] overflow-auto mt-4"
+      color="primary"
+      className=" overflow-auto mt-4"
+      aria-label="Sports standings table"
     >
       <TableHeader>
         <TableColumn className="w-[400px] font-bold">Nickname</TableColumn>
@@ -156,7 +160,11 @@ export const Home = () => {
                         : game.master_team_point;
 
                       return (
-                        <DropdownItem key={idx}>
+                        <DropdownItem
+                              key={idx}
+                              textValue={`${teamIdMap[item.id]?.name} ${teamScore} : ${opponentScore} ${opponent?.name}`}
+                              onPress={() => navigate(`/gameMatch/${game.id}`)}
+                          >
                           <div className="flex items-center gap-2">
                             <Image
                               src={item.image || "https://qcgqnbovwktkbdbsiidk.supabase.co/storage/v1/object/public/dream-high-image/team/default-logo.jpg"}
@@ -196,8 +204,8 @@ export const Home = () => {
 
   return (
     <div className="p-6 min-h-screen">
-      <div className="bg-gray-100 p-4 rounded-xl shadow">
-        <Tabs aria-label="Sports Categories" variant="bordered">
+      <div className="p-4 rounded-xl shadow">
+        <Tabs aria-label="Sports Categories" color={"primary"}>
           <Tab key="female-basketball" title="Эмэгтэй сагсан бөмбөг">
             {createTable(femaleBasketball)}
           </Tab>
