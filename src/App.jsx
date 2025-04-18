@@ -25,6 +25,7 @@ function App() {
         <Route path="teamAdd" element={getComponent("TEAM_ADD")}/>
         <Route path="playerAdd" element={getComponent("PLAYER_ADD")}/>
         <Route path="gameSchedule" element={getComponent("GAME_SCHEDULE")}/>
+        <Route path="gameMatch/:id" element={getComponent("GAME_MATCH")}/>
       </Routes>
     );
   };
